@@ -12,10 +12,58 @@
             <div class="container">
               <div class="container-fluid">
                 <div class="column">
-
                   <h1 class="text-center">{{greeting}}</h1>
-                  <hr />
-
+                  <hr/>
+                  <button type="button" class="btn btn-success" ng-click="create = !create; join = false" ng-init="create = false">Create a game</button>
+                  <button type="button" class="btn btn-info" ng-click="join = !join; create = false" ng-init="join = false">Join a game</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-lg-8 col-md-10 col-sm-12 col-xs-12 offset-lg-2 offset-md-1 float-md-center" ng-if="create">
+          <div class="jumbotron">
+            <div class="container">
+              <div class="container-fluid">
+                <div class="column">
+                  <h1 class="text-center">Create a game 👩🏽‍🎨</h1>
+                    <form>
+                      <div class="form-group">
+                        <label for="ControlTextarea1">Room name</label>
+                        <input ng-model="Room.name" type="text" class="form-control" id="ControlTextarea1" placeholder="My room">
+                      </div>
+                      <div class="form-group">
+                        <label for="FormControlSelect1">How many suggestions per-person?</label>
+                        <select ng-model="Room.suggestions"class="form-control" id="FormControlSelect1">
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                          <option>4</option>
+                          <option>5</option>
+                        </select>
+                      </div>
+                      <button type="submit" class="btn btn-primary" ng-click="player.createGame()">Create!</button>
+                    </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-lg-8 col-md-10 col-sm-12 col-xs-12 offset-lg-2 offset-md-1 float-md-center" ng-if="join">
+          <div class="jumbotron">
+            <div class="container">
+              <div class="container-fluid">
+                <div class="column">
+                  <h1 class="text-center">Join a game 👨‍👩‍👧‍👧</h1>
+                  <form ng-if="!roomExists">
+                    <div class="form-group">
+                      <label for="ControlTextarea1">Room name</label>
+                      <input ng-model="Room.name" type="text" class="form-control" id="ControlTextarea2" placeholder="My friend's room">
+                    </div>
+                    <button type="button" type="submit" class="btn btn-primary" ng-click="player.joinGame()">Join!</button>
+                  </form>
                 </div>
               </div>
             </div>
