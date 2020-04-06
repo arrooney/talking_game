@@ -57,13 +57,32 @@
               <div class="container-fluid">
                 <div class="column">
                   <h1 class="text-center">Join a game 👨‍👩‍👧‍👧</h1>
-                  <form ng-if="!roomExists">
+                  <form>
                     <div class="form-group">
                       <label for="ControlTextarea1">Room name</label>
                       <input ng-model="Room.name" type="text" class="form-control" id="ControlTextarea2" placeholder="My friend's room">
                     </div>
+                </form>
                     <button type="button" type="submit" class="btn btn-primary" ng-click="player.joinGame()">Join!</button>
-                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-8 col-md-10 col-sm-12 col-xs-12 offset-lg-2 offset-md-1 float-md-center" ng-if="roomExists">
+          <div class="jumbotron">
+            <div class="container">
+              <div class="container-fluid">
+                <div class="column">
+                  <h4 class="text-center">{{joinMsg}}</h1>
+                  <h4 class="text-center">{{Room.details.suggestions}}</h1>
+                
+                  <div ng-form="namesForm_{{$index}}" ng-repeat="sugNum in range(Room.details.suggestions)">
+                    <input type="text"
+                           name="input_{{$index}}_0"></input>
+                  </div> 
+                    <button type="button" type="submit" class="btn btn-primary" ng-click="player.joinGame()">Join!</button>
                 </div>
               </div>
             </div>

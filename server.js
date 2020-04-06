@@ -13,7 +13,7 @@ class Server {
             res.sendFile(__dirname+'/index.html');
         });
 
-        this.server.listen(8081, () => { // Listens to port 80
+        this.server.listen(8081, '0.0.0.0', () => { // Listens to port 80
             console.log('Listening on ' + this.server.address().port);
         });
         this.client.on('connect', function() {

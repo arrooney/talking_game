@@ -5,9 +5,10 @@ app.controller('myGame', ['$scope', 'socketFactory', function($scope, socketFact
         constructor() {
             this.dom          = $scope;
             this.dom.Room     = {};
+            this.dom.Player     = {};
             this.dom.greeting = "The talking game 📢";
             this.socket       = socketFactory();
-            this.roomExists   = false;
+            this.dom.roomExists   = false;
             this.setup();
         }
 
@@ -34,13 +35,32 @@ app.controller('myGame', ['$scope', 'socketFactory', function($scope, socketFact
         joinGame() {
             this.socket.emit("joinRoomRequest", this.dom.Room, (resp, roomDetails, msg) => {
                 if (resp) {
-                    this.roomExists = true;
-                    this.joinMsg = "Enter your name to join \'" + this.dom.Room.name + "\'";
+                    this.dom.roomExists = true;
+                    let joinStr = "Enter your name to join \'" + this.dom.Room.name + "\'";
                     console.log(roomDetails);
+                    this.dom.Room.details = roomDetails;
+                    console.log(this.dom.Room.details.suggestions);
+                    if (roomDetails.owner == this.socket.id||1) {
+                        joinStr += " (you are the owner of this room)"
+                        this.dom.iAmOwner = true;
+                    } else {
+                        this.dom.iAmOwner = false;
+                    }
+                    this.dom.joinMsg = joinStr;
                 }
             });
             this.dom.join = false;
         }
     }
     $scope.player = new Player();
+    
+    $scope.range = function(min, max, step) {
+        step = step || 1;
+        min = min || 0;
+        var input = [];
+        for (var i = min; i <= max; i += step) {
+            input.push(i);
+        }
+        return input;
+    };
 }]);
